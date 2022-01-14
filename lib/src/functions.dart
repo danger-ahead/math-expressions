@@ -601,7 +601,12 @@ class Sin extends DefaultFunction {
       if ((argEval / math.pi).abs() % 1 == 0) {
         return 0.0;
       }
-      return math.sin(argEval);
+      if (!isRadianGlobal) {
+        dynamic toDegree = argEval * (math.pi / 180);
+        return math.sin(toDegree);
+      } else {
+        return math.sin(argEval);
+      }
     }
 
     if (type == EvaluationType.VECTOR) {
@@ -653,7 +658,18 @@ class Cos extends DefaultFunction {
       if (((argEval - math.pi / 2) / math.pi).abs() % 1 == 0) {
         return 0.0;
       }
-      return math.cos(argEval);
+      if (!isRadianGlobal) {
+        dynamic toDegree = argEval * (math.pi / 180);
+        if (math.cos(toDegree).toString().endsWith('e-16') ||
+            math.cos(toDegree).toString().endsWith('e-15') ||
+            math.cos(toDegree).toString().endsWith('e-17')) {
+          return 0.0;
+        } else {
+          return math.cos(toDegree);
+        }
+      } else {
+        return math.cos(argEval);
+      }
     }
 
     if (type == EvaluationType.VECTOR) {
@@ -704,7 +720,17 @@ class Tan extends DefaultFunction {
       if ((argEval / math.pi).abs() % 1 == 0) {
         return 0.0;
       }
-      return math.tan(argEval);
+      if (!isRadianGlobal) {
+        dynamic toDegree = argEval * (math.pi / 180);
+        if (math.cos(toDegree).toString().endsWith('e-16') ||
+            math.cos(toDegree).toString().endsWith('e-15') ||
+            math.cos(toDegree).toString().endsWith('e-17')) {
+          return double.infinity;
+        }
+        return math.tan(toDegree);
+      } else {
+        return math.tan(argEval);
+      }
     }
 
     if (type == EvaluationType.VECTOR) {

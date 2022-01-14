@@ -39,3 +39,4 @@ part 'src/expression.dart';
 part 'src/functions.dart';
 part 'src/parser.dart';
 part 'src/evaluator.dart';
+part 'src/globals.dart';

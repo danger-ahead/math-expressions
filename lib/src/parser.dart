@@ -20,7 +20,8 @@ class Parser {
   /// [ArgumentError] if the given [inputString] is empty. Throws a
   /// [StateError] if the token stream is invalid. Returns a valid
   /// [Expression].
-  Expression parse(String inputString) {
+  Expression parse(String inputString, [bool isRadian = true]) {
+    isRadianGlobal = isRadian;
     if (inputString.trim().isEmpty) {
       throw FormatException('The given input string was empty.');
     }
